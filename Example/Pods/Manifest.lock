@@ -1,0 +1,14 @@
+PODS:
+  - ANLongTapButton (0.1.0)
+
+DEPENDENCIES:
+  - ANLongTapButton (from `../`)
+
+EXTERNAL SOURCES:
+  ANLongTapButton:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ANLongTapButton: 454bdfc8eaec248a4df52b3fe27728b990e2ad99
+
+COCOAPODS: 0.39.0.rc.1

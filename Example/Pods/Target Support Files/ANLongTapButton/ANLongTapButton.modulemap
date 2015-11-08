@@ -1,0 +1,6 @@
+framework module ANLongTapButton {
+  umbrella header "ANLongTapButton-umbrella.h"
+
+  export *
+  module * { export * }
+}
