@@ -1,0 +1,25 @@
+{
+  "name": "ANLongTapButton",
+  "version": "0.1.0",
+  "summary": "A short description of ANLongTapButton.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/ANLongTapButton",
+  "license": "MIT",
+  "authors": {
+    "Sergey Demchenko": "antrix1989@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/ANLongTapButton.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "ANLongTapButton": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

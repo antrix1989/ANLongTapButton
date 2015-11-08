@@ -1,0 +1,6 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'ANLongTapButton_Example', :exclusive => true do
+  pod "ANLongTapButton", :path => "../"
+end
