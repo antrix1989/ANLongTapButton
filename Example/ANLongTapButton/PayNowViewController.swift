@@ -36,10 +36,10 @@ class PayNowViewController: UIViewController
     // Note: Touch Down Event, NOT Touch Up Inside.
     @IBAction func onPayNowButtonTapped(longTapButton: ANLongTapButton)
     {
-        longTapButton.didTimePeriodElapseBlock = { () -> Void in
+        longTapButton.didTimePeriodElapseBlock = { [weak self] () -> Void in
             let alert = UIAlertController(title: "Payment", message: "Payment has been made.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self?.presentViewController(alert, animated: true, completion: nil)
         }
     }
 }

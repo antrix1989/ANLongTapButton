@@ -7,7 +7,28 @@
 //
 
 import UIKit
+import ANLongTapButton
 
 class RecordViewController: UIViewController
 {
+    @IBOutlet var recordButton: ANLongTapButton!
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        recordButton.timePeriod = 10
+    }
+    
+    // MARK: - IBAction
+    
+    // Note: Touch Down Event, NOT Touch Up Inside.
+    @IBAction func onRecordButtonTapped(recordButton: ANLongTapButton)
+    {
+        recordButton.didFinishBlock = { [weak self] () -> Void in
+            let alert = UIAlertController(title: "Video Recording", message: "Recording has been done.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self?.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
 }

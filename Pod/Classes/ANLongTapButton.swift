@@ -17,10 +17,15 @@ public class ANLongTapButton: UIButton
     @IBInspectable public var startAngle: CGFloat = -90
     @IBInspectable public var timePeriod: NSTimeInterval = 3
     
+    /// Invokes when timePeriod has elapsed.
     public var didTimePeriodElapseBlock : (() -> Void) = { () -> Void in }
+    
+    /// Invokes when either time period has elapsed or when user cancels touch.
+    public var didFinishBlock : (() -> Void) = { () -> Void in }
     
     var timePeriodTimer: NSTimer?
     var circleLayer: CAShapeLayer?
+    var isFinished = true
     
     public override func prepareForInterfaceBuilder()
     {
@@ -65,12 +70,14 @@ public class ANLongTapButton: UIButton
     
     func start(sender: AnyObject, forEvent event: UIEvent)
     {
+        isFinished = false
         reset()
         
         timePeriodTimer = NSTimer.schedule(delay: timePeriod) { [weak self] (timer) -> Void in
             self?.timePeriodTimer?.invalidate()
             self?.timePeriodTimer = nil
-            
+            self?.isFinished = true
+            self?.didFinishBlock()
             self?.didTimePeriodElapseBlock()
         }
         
@@ -96,6 +103,11 @@ public class ANLongTapButton: UIButton
     
     func cancel(sender: AnyObject, forEvent event: UIEvent)
     {
+        if !isFinished {
+            isFinished = true
+            didFinishBlock()
+        }
+        
         reset()
     }
     

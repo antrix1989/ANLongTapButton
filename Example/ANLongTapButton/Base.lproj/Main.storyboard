@@ -21,7 +21,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOk-mA-Lpt">
                                 <rect key="frame" x="55" y="135" width="210" height="210"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGR-RJ-2pP" customClass="ANLongTapButton" customModule="ANLongTapButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGR-RJ-2pP" customClass="ANLongTapButton" customModule="ANLongTapButton">
                                         <rect key="frame" x="0.0" y="0.0" width="210" height="210"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -105,11 +105,51 @@
                     <view key="view" contentMode="scaleToFill" id="kgS-hD-pwo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcA-sH-QqT" customClass="ANLongTapButton" customModule="ANLongTapButton">
+                                <rect key="frame" x="130" y="209.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mcA-sH-QqT" secondAttribute="height" multiplier="1:1" id="EWP-VO-NPz"/>
+                                    <constraint firstAttribute="height" constant="50" id="i1K-Vv-dPL"/>
+                                    <constraint firstAttribute="width" constant="60" id="xYT-mj-NdA"/>
+                                </constraints>
+                                <state key="normal" image="video_record"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="barWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="barColor">
+                                        <color key="value" red="0.85490196080000003" green="0.25490196079999999" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="barTrackColor">
+                                        <color key="value" white="0.66666666666666663" alpha="0.507661201584507" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bgCircleColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="i1K-Vv-dPL"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="onRecordButtonTapped:" destination="lQk-gT-uYg" eventType="touchDown" id="TAc-sm-EDI"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mcA-sH-QqT" firstAttribute="centerX" secondItem="kgS-hD-pwo" secondAttribute="centerX" id="9yu-N4-ugn"/>
+                            <constraint firstItem="mcA-sH-QqT" firstAttribute="centerY" secondItem="kgS-hD-pwo" secondAttribute="centerY" id="oVa-T6-0nW"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iXD-5g-lhZ"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
+                    <connections>
+                        <outlet property="recordButton" destination="mcA-sH-QqT" id="la3-M9-6bf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1od-q2-Hpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -211,4 +251,7 @@
             <point key="canvasLocation" x="-63" y="-217"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="video_record" width="56" height="55"/>
+    </resources>
 </document>
