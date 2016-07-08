@@ -44,11 +44,11 @@ public class ANLongTapButton: UIButton
     {
         super.awakeFromNib()
         
-        addTarget(self, action: Selector("start:forEvent:"), forControlEvents: .TouchDown)
-        addTarget(self, action: Selector("cancel:forEvent:"), forControlEvents: .TouchUpInside)
-        addTarget(self, action: Selector("cancel:forEvent:"), forControlEvents: .TouchCancel)
-        addTarget(self, action: Selector("cancel:forEvent:"), forControlEvents: .TouchDragExit)
-        addTarget(self, action: Selector("cancel:forEvent:"), forControlEvents: .TouchDragOutside)
+        addTarget(self, action: #selector(start(_:forEvent:)), forControlEvents: .TouchDown)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchUpInside)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchCancel)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchDragExit)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchDragOutside)
     }
     
     public override func drawRect(rect: CGRect)
