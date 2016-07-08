@@ -17,7 +17,7 @@ class RecordViewController: UIViewController
     {
         super.viewDidLoad()
         
-        recordButton.timePeriod = 10
+        recordButton.timePeriod = 5
     }
     
     // MARK: - IBAction
