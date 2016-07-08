@@ -7,6 +7,7 @@ ANLongTapButton
 Long tap button with animated progress bar.
 
 <img src="Screenshots/example01.gif" width="170">
+<img src="Screenshots/example02.gif" width="170">
 
 ## Requirements
 - iOS 8.0+
