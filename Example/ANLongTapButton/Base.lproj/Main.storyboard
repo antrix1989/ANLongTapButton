@@ -94,6 +94,27 @@
             </objects>
             <point key="canvasLocation" x="739" y="-217"/>
         </scene>
+        <!--Record View Controller-->
+        <scene sceneID="Urq-0b-FlM">
+            <objects>
+                <viewController storyboardIdentifier="RecordViewController" id="lQk-gT-uYg" customClass="RecordViewController" customModule="ANLongTapButton_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RPs-Jf-vws"/>
+                        <viewControllerLayoutGuide type="bottom" id="cz9-Q5-UdT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kgS-hD-pwo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="iXD-5g-lhZ"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1od-q2-Hpz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="739" y="437"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="kgK-Uz-7gx">
             <objects>
@@ -151,6 +172,9 @@
                                                 <constraint firstItem="87B-PJ-rF6" firstAttribute="leading" secondItem="fuw-J8-CSk" secondAttribute="leading" constant="12" id="ywb-d8-7Q0"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="lQk-gT-uYg" kind="push" id="kEE-AN-D3p"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
