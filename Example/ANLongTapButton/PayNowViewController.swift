@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PayNowViewController.swift
 //  ANLongTapButton
 //
 //  Created by Sergey Demchenko on 11/07/2015.
@@ -9,7 +9,7 @@
 import UIKit
 import ANLongTapButton
 
-class ViewController: UIViewController
+class PayNowViewController: UIViewController
 {
     @IBOutlet var longTapButton: ANLongTapButton!
     
