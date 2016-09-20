@@ -8,26 +8,26 @@
 import UIKit
 
 @IBDesignable
-public class ANLongTapButton: UIButton
+open class ANLongTapButton: UIButton
 {
-    @IBInspectable public var barWidth: CGFloat = 10
-    @IBInspectable public var barColor: UIColor = UIColor.yellowColor()
-    @IBInspectable public var barTrackColor: UIColor = UIColor.grayColor()
-    @IBInspectable public var bgCircleColor: UIColor = UIColor.blueColor()
-    @IBInspectable public var startAngle: CGFloat = -90
-    @IBInspectable public var timePeriod: NSTimeInterval = 3
+    @IBInspectable open var barWidth: CGFloat = 10
+    @IBInspectable open var barColor: UIColor = UIColor.yellow
+    @IBInspectable open var barTrackColor: UIColor = UIColor.gray
+    @IBInspectable open var bgCircleColor: UIColor = UIColor.blue
+    @IBInspectable open var startAngle: CGFloat = -90
+    @IBInspectable open var timePeriod: TimeInterval = 3
     
     /// Invokes when timePeriod has elapsed.
-    public var didTimePeriodElapseBlock : (() -> Void) = { () -> Void in }
+    open var didTimePeriodElapseBlock : (() -> Void) = { () -> Void in }
     
     /// Invokes when either time period has elapsed or when user cancels touch.
-    public var didFinishBlock : (() -> Void) = { () -> Void in }
+    open var didFinishBlock : (() -> Void) = { () -> Void in }
     
-    var timePeriodTimer: NSTimer?
+    var timePeriodTimer: Timer?
     var circleLayer: CAShapeLayer?
     var isFinished = true
     
-    public override func prepareForInterfaceBuilder()
+    open override func prepareForInterfaceBuilder()
     {
         let center = self.center()
         let radius = self.radius()
@@ -40,26 +40,26 @@ public class ANLongTapButton: UIButton
         }
     }
     
-    public override func awakeFromNib()
+    open override func awakeFromNib()
     {
         super.awakeFromNib()
         
-        addTarget(self, action: #selector(start(_:forEvent:)), forControlEvents: .TouchDown)
-        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchUpInside)
-        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchCancel)
-        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchDragExit)
-        addTarget(self, action: #selector(cancel(_:forEvent:)), forControlEvents: .TouchDragOutside)
+        addTarget(self, action: #selector(start(_:forEvent:)), for: .touchDown)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchUpInside)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchCancel)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchDragExit)
+        addTarget(self, action: #selector(cancel(_:forEvent:)), for: .touchDragOutside)
     }
     
-    public override func drawRect(rect: CGRect)
+    open override func draw(_ rect: CGRect)
     {
-        super.drawRect(rect)
+        super.draw(rect)
         
         let center = self.center()
         let radius = self.radius()
         
         if let context = UIGraphicsGetCurrentContext() {
-            CGContextClearRect(context, rect)
+            context.clear(rect)
             drawBackground(context, center: center, radius: radius)
             drawBackgroundCircle(context, center: center, radius: radius)
             drawTrackBar(context, center: center, radius: radius)
@@ -68,12 +68,12 @@ public class ANLongTapButton: UIButton
     
     // MARK: - Internal
     
-    func start(sender: AnyObject, forEvent event: UIEvent)
+    func start(_ sender: AnyObject, forEvent event: UIEvent)
     {
         isFinished = false
         reset()
         
-        timePeriodTimer = NSTimer.schedule(delay: timePeriod) { [weak self] (timer) -> Void in
+        timePeriodTimer = Timer.schedule(delay: timePeriod) { [weak self] (timer) -> Void in
             self?.timePeriodTimer?.invalidate()
             self?.timePeriodTimer = nil
             self?.isFinished = true
@@ -86,22 +86,22 @@ public class ANLongTapButton: UIButton
         radius = radius - (barWidth / 2)
         
         circleLayer = CAShapeLayer()
-        circleLayer!.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: degreesToRadians(startAngle), endAngle: degreesToRadians(startAngle + 360), clockwise: true).CGPath
-        circleLayer!.fillColor = UIColor.clearColor().CGColor
-        circleLayer!.strokeColor = barColor.CGColor
+        circleLayer!.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: degreesToRadians(startAngle), endAngle: degreesToRadians(startAngle + 360), clockwise: true).cgPath
+        circleLayer!.fillColor = UIColor.clear.cgColor
+        circleLayer!.strokeColor = barColor.cgColor
         circleLayer!.lineWidth = barWidth
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration = timePeriod
-        animation.removedOnCompletion = true
+        animation.isRemovedOnCompletion = true
         animation.fromValue = 0
         animation.toValue = 1
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        circleLayer!.addAnimation(animation, forKey: "drawCircleAnimation")
+        circleLayer!.add(animation, forKey: "drawCircleAnimation")
         self.layer.addSublayer(circleLayer!)
     }
     
-    func cancel(sender: AnyObject, forEvent event: UIEvent)
+    func cancel(_ sender: AnyObject, forEvent event: UIEvent)
     {
         if !isFinished {
             isFinished = true
@@ -120,64 +120,64 @@ public class ANLongTapButton: UIButton
         circleLayer = nil
     }
     
-    func drawBackground(context: CGContextRef, center: CGPoint, radius: CGFloat)
+    func drawBackground(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
         if let backgroundColor = self.backgroundColor {
-            CGContextSetFillColorWithColor(context, backgroundColor.CGColor);
-            CGContextFillRect(context, bounds)
+            context.setFillColor(backgroundColor.cgColor);
+            context.fill(bounds)
         }
     }
     
-    func drawBackgroundCircle(context: CGContextRef, center: CGPoint, radius: CGFloat)
+    func drawBackgroundCircle(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
-        CGContextSetFillColorWithColor(context, bgCircleColor.CGColor)
-        CGContextBeginPath(context)
-        CGContextAddArc(context, center.x, center.y, radius, 0, 360, 0)
-        CGContextClosePath(context)
-        CGContextFillPath(context)
+        context.setFillColor(bgCircleColor.cgColor)
+        context.beginPath()
+        context.addArc(center: center, radius: radius, startAngle: 0, endAngle: 360, clockwise: false)
+        context.closePath()
+        context.fillPath()
     }
     
-    func drawTrackBar(context: CGContextRef, center: CGPoint, radius: CGFloat)
-    {
-        if (barWidth > radius) {
-            barWidth = radius;
-        }
-        
-        CGContextSetFillColorWithColor(context, barTrackColor.CGColor)
-        CGContextBeginPath(context)
-        CGContextAddArc(context, center.x, center.y, radius, degreesToRadians(startAngle), degreesToRadians(startAngle + 360), 0);
-        CGContextAddArc(context, center.x, center.y, radius - barWidth, degreesToRadians(startAngle + 360), degreesToRadians(startAngle), 1);
-        CGContextClosePath(context)
-        CGContextFillPath(context)
-    }
-    
-    func drawProgressBar(context: CGContextRef, center: CGPoint, radius: CGFloat)
+    func drawTrackBar(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
         if (barWidth > radius) {
             barWidth = radius;
         }
         
-        CGContextSetFillColorWithColor(context, barColor.CGColor)
-        CGContextBeginPath(context)
-        CGContextAddArc(context, center.x, center.y, radius, degreesToRadians(startAngle), degreesToRadians(startAngle + 90), 0);
-        CGContextAddArc(context, center.x, center.y, radius - barWidth, degreesToRadians(startAngle + 90), degreesToRadians(startAngle), 1);
-        CGContextClosePath(context)
-        CGContextFillPath(context)
+        context.setFillColor(barTrackColor.cgColor)
+        context.beginPath()
+        context.addArc(center: center, radius: radius, startAngle: degreesToRadians(startAngle), endAngle: degreesToRadians(startAngle + 360), clockwise: false)
+        context.addArc(center: center, radius: radius - barWidth, startAngle: degreesToRadians(startAngle + 360), endAngle: degreesToRadians(startAngle), clockwise: true)
+        context.closePath()
+        context.fillPath()
+    }
+    
+    func drawProgressBar(_ context: CGContext, center: CGPoint, radius: CGFloat)
+    {
+        if (barWidth > radius) {
+            barWidth = radius;
+        }
+        
+        context.setFillColor(barColor.cgColor)
+        context.beginPath()
+        context.addArc(center: center, radius: radius, startAngle: degreesToRadians(startAngle), endAngle: degreesToRadians(startAngle + 90), clockwise: false)
+        context.addArc(center: center, radius: radius - barWidth, startAngle: degreesToRadians(startAngle + 90), endAngle: degreesToRadians(startAngle), clockwise: true)
+        context.closePath()
+        context.fillPath()
     }
     
     // MARK: - Private
     
-    private func center() -> CGPoint
+    fileprivate func center() -> CGPoint
     {
-        return CGPointMake(bounds.size.width / 2, bounds.size.height / 2)
+        return CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
     }
     
-    private func radius() -> CGFloat
+    fileprivate func radius() -> CGFloat
     {
         let center = self.center()
         
         return min(center.x, center.y)
     }
     
-    private func degreesToRadians (value: CGFloat) -> CGFloat { return value * CGFloat(M_PI) / CGFloat(180.0) }
+    fileprivate func degreesToRadians (_ value: CGFloat) -> CGFloat { return value * CGFloat(M_PI) / CGFloat(180.0) }
 }

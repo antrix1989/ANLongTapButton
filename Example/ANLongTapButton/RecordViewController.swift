@@ -23,12 +23,12 @@ class RecordViewController: UIViewController
     // MARK: - IBAction
     
     // Note: Touch Down Event, NOT Touch Up Inside.
-    @IBAction func onRecordButtonTapped(recordButton: ANLongTapButton)
+    @IBAction func onRecordButtonTapped(_ recordButton: ANLongTapButton)
     {
         recordButton.didFinishBlock = { [weak self] () -> Void in
-            let alert = UIAlertController(title: "Video Recording", message: "Recording has been done.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self?.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Video Recording", message: "Recording has been done.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
         }
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension NSTimer
+extension Timer
 {
     /**
      Creates and schedules a one-time `NSTimer` instance.
@@ -17,12 +17,12 @@ extension NSTimer
      
      - returns: The newly-created `NSTimer` instance.
      */
-    class func schedule(delay delay: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer
+    class func schedule(delay: TimeInterval, handler: @escaping (CFRunLoopTimer?) -> Void) -> Timer
     {
         let fireDate = delay + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, handler)
-        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, kCFRunLoopCommonModes)
-        return timer
+        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
+        return timer!
     }
     
     /**
@@ -33,11 +33,11 @@ extension NSTimer
      
      - returns: The newly-created `NSTimer` instance.
      */
-    class func schedule(repeatInterval interval: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer
+    class func schedule(repeatInterval interval: TimeInterval, handler: @escaping (CFRunLoopTimer?) -> Void) -> Timer
     {
         let fireDate = interval + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, handler)
-        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, kCFRunLoopCommonModes)
-        return timer
+        CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
+        return timer!
     }
 }
