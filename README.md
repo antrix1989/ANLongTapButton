@@ -2,7 +2,7 @@ ANLongTapButton
 ========================
 
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/ANLongTapButton.svg?style=flat)](http://cocoadocs.org/docsets/ANLongTapButton)
-[![Swift 2.0](https://img.shields.io/badge/Swift-2.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 
 Long tap button with animated progress bar.
 
