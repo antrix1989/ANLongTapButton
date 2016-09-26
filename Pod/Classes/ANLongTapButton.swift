@@ -23,6 +23,9 @@ open class ANLongTapButton: UIButton
     /// Invokes when either time period has elapsed or when user cancels touch.
     open var didFinishBlock : (() -> Void) = { () -> Void in }
     
+    /// Invokes when user started touch.
+    open var didStartBlock : (() -> Void) = { () -> Void in }
+    
     var timePeriodTimer: Timer?
     var circleLayer: CAShapeLayer?
     var isFinished = true
@@ -72,6 +75,7 @@ open class ANLongTapButton: UIButton
     {
         isFinished = false
         reset()
+        didStartBlock()
         
         timePeriodTimer = Timer.schedule(delay: timePeriod) { [weak self] (timer) -> Void in
             self?.timePeriodTimer?.invalidate()
