@@ -11,7 +11,7 @@ Long tap button with animated progress bar.
 
 ## Requirements
 - iOS 8.0+
-- Swift 3.0+
+- Swift 4.2
 - ARC
 
 ##Installation
