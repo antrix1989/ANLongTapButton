@@ -21,14 +21,14 @@ class PayNowViewController: UIViewController
         let hintString = "Press for 3 seconds to\nrelease payment to\nJohn Doe"
         
         let title = NSMutableAttributedString(string: titleString + hintString)
-        let titleAttributes = [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.clear, NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 22)!]
-        let hitAttributes = [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.clear, NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 12)!]
-        title.setAttributes(titleAttributes, range: NSMakeRange(0, titleString.characters.count))
-        title.setAttributes(hitAttributes, range: NSMakeRange(titleString.characters.count, hintString.characters.count))
+        let titleAttributes = [convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.clear, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "HelveticaNeue-Light", size: 22)!]
+        let hitAttributes = [convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.clear, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "HelveticaNeue-Light", size: 12)!]
+        title.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(titleAttributes), range: NSMakeRange(0, titleString.characters.count))
+        title.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(hitAttributes), range: NSMakeRange(titleString.characters.count, hintString.characters.count))
         
         longTapButton.titleLabel?.lineBreakMode = .byWordWrapping
         longTapButton.titleLabel?.textAlignment = .center
-        longTapButton.setAttributedTitle(title, for: UIControlState())
+        longTapButton.setAttributedTitle(title, for: UIControl.State())
     }
     
     // MARK: - IBAction
@@ -37,10 +37,21 @@ class PayNowViewController: UIViewController
     @IBAction func onPayNowButtonTapped(_ longTapButton: ANLongTapButton)
     {
         longTapButton.didTimePeriodElapseBlock = { [weak self] () -> Void in
-            let alert = UIAlertController(title: "Payment", message: "Payment has been made.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Payment", message: "Payment has been made.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self?.present(alert, animated: true, completion: nil)
         }
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
