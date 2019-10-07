@@ -286,7 +286,7 @@
 				LastUpgradeCheck = 0710;
 				TargetAttributes = {
 					65FB4A87AB8579FC8D658E20C7B50C87 = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 					};
 					70F455F96D8716E29EB4AC8F321A387A = {
 						LastSwiftMigration = 0800;
@@ -396,7 +396,8 @@
 				PRODUCT_NAME = ANLongTapButton;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -460,7 +461,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

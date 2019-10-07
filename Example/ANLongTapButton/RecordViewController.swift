@@ -26,8 +26,8 @@ class RecordViewController: UIViewController
     @IBAction func onRecordButtonTapped(_ recordButton: ANLongTapButton)
     {
         recordButton.didFinishBlock = { [weak self] () -> Void in
-            let alert = UIAlertController(title: "Video Recording", message: "Recording has been done.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Video Recording", message: "Recording has been done.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self?.present(alert, animated: true, completion: nil)
         }
     }

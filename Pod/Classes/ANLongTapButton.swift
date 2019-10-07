@@ -71,7 +71,7 @@ open class ANLongTapButton: UIButton
     
     // MARK: - Internal
     
-    func start(_ sender: AnyObject, forEvent event: UIEvent)
+    @objc func start(_ sender: AnyObject, forEvent event: UIEvent)
     {
         isFinished = false
         reset()
@@ -100,12 +100,12 @@ open class ANLongTapButton: UIButton
         animation.isRemovedOnCompletion = true
         animation.fromValue = 0
         animation.toValue = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         circleLayer!.add(animation, forKey: "drawCircleAnimation")
         self.layer.addSublayer(circleLayer!)
     }
     
-    func cancel(_ sender: AnyObject, forEvent event: UIEvent)
+    @objc func cancel(_ sender: AnyObject, forEvent event: UIEvent)
     {
         if !isFinished {
             isFinished = true
@@ -183,5 +183,5 @@ open class ANLongTapButton: UIButton
         return min(center.x, center.y)
     }
     
-    fileprivate func degreesToRadians (_ value: CGFloat) -> CGFloat { return value * CGFloat(M_PI) / CGFloat(180.0) }
+    fileprivate func degreesToRadians (_ value: CGFloat) -> CGFloat { return value * CGFloat.pi / CGFloat(180.0) }
 }
