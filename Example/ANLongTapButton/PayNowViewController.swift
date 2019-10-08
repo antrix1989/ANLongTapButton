@@ -23,8 +23,8 @@ class PayNowViewController: UIViewController
         let title = NSMutableAttributedString(string: titleString + hintString)
         let titleAttributes = [convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.clear, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "HelveticaNeue-Light", size: 22)!]
         let hitAttributes = [convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.clear, convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "HelveticaNeue-Light", size: 12)!]
-        title.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(titleAttributes), range: NSMakeRange(0, titleString.characters.count))
-        title.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(hitAttributes), range: NSMakeRange(titleString.characters.count, hintString.characters.count))
+        title.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(titleAttributes), range: NSMakeRange(0, titleString.count))
+        title.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(hitAttributes), range: NSMakeRange(titleString.count, hintString.count))
         
         longTapButton.titleLabel?.lineBreakMode = .byWordWrapping
         longTapButton.titleLabel?.textAlignment = .center
