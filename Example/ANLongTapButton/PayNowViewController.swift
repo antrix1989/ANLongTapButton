@@ -12,6 +12,7 @@ import ANLongTapButton
 class PayNowViewController: UIViewController
 {
     @IBOutlet var longTapButton: ANLongTapButton!
+    @IBOutlet var animatedRollbackSwitch: UISwitch!
     
     override func viewDidLoad()
     {
@@ -29,6 +30,8 @@ class PayNowViewController: UIViewController
         longTapButton.titleLabel?.lineBreakMode = .byWordWrapping
         longTapButton.titleLabel?.textAlignment = .center
         longTapButton.setAttributedTitle(title, for: UIControl.State())
+        
+        animatedRollbackSwitch.setOn(longTapButton.animatedRollback, animated: false)
     }
     
     // MARK: - IBAction
@@ -41,6 +44,10 @@ class PayNowViewController: UIViewController
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self?.present(alert, animated: true, completion: nil)
         }
+    }
+    @IBAction func switchDidChangeValue(_ sender: UISwitch)
+    {
+        longTapButton.animatedRollback = sender.isOn
     }
 }
 

@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="T9S-DG-o7G">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T9S-DG-o7G">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,17 +12,15 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="PayNowViewController" customModule="ANLongTapButton_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOk-mA-Lpt">
+                                <rect key="frame" x="55" y="179" width="210" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGR-RJ-2pP" customClass="ANLongTapButton" customModule="ANLongTapButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="210" height="210"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="elW-65-Tfu"/>
@@ -69,13 +68,31 @@
                                     <constraint firstItem="PGR-RJ-2pP" firstAttribute="leading" secondItem="oOk-mA-Lpt" secondAttribute="leading" id="de8-OX-vp2"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Animated rollback" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6G-gD-tzk">
+                                <rect key="frame" x="89" y="108" width="138" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3DD-Uf-ahJ">
+                                <rect key="frame" x="20" y="103" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchDidChangeValue:" destination="vXZ-lx-hvc" eventType="valueChanged" id="r8f-dZ-uDH"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="oOk-mA-Lpt" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="2tZ-Hp-5sX"/>
-                            <constraint firstItem="oOk-mA-Lpt" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="Qmd-jR-xRq"/>
+                            <constraint firstItem="oOk-mA-Lpt" firstAttribute="centerX" secondItem="wvK-Si-y0r" secondAttribute="centerX" id="2tZ-Hp-5sX"/>
+                            <constraint firstItem="3DD-Uf-ahJ" firstAttribute="leading" secondItem="wvK-Si-y0r" secondAttribute="leading" constant="20" id="3lB-NL-xjr"/>
+                            <constraint firstItem="k6G-gD-tzk" firstAttribute="top" secondItem="wvK-Si-y0r" secondAttribute="top" constant="20" id="HWv-nz-AbX"/>
                             <constraint firstItem="oOk-mA-Lpt" firstAttribute="width" secondItem="oOk-mA-Lpt" secondAttribute="height" multiplier="1:1" id="dar-Vw-Ei5"/>
+                            <constraint firstItem="wvK-Si-y0r" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k6G-gD-tzk" secondAttribute="trailing" constant="20" id="fWH-HJ-aO7"/>
+                            <constraint firstItem="k6G-gD-tzk" firstAttribute="leading" secondItem="3DD-Uf-ahJ" secondAttribute="trailing" constant="20" id="rit-k9-iDj"/>
+                            <constraint firstItem="3DD-Uf-ahJ" firstAttribute="centerY" secondItem="k6G-gD-tzk" secondAttribute="centerY" id="sc5-x7-aJ2"/>
+                            <constraint firstItem="oOk-mA-Lpt" firstAttribute="top" secondItem="k6G-gD-tzk" secondAttribute="bottom" constant="50" id="vSy-yi-pb8"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="wvK-Si-y0r"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="dar-Vw-Ei5"/>
@@ -86,26 +103,24 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
+                        <outlet property="animatedRollbackSwitch" destination="3DD-Uf-ahJ" id="xvQ-6d-yrL"/>
                         <outlet property="longTapButton" destination="PGR-RJ-2pP" id="a46-bN-Kfa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="739" y="-217"/>
+            <point key="canvasLocation" x="868" y="-218"/>
         </scene>
         <!--Record View Controller-->
         <scene sceneID="Urq-0b-FlM">
             <objects>
                 <viewController storyboardIdentifier="RecordViewController" id="lQk-gT-uYg" customClass="RecordViewController" customModule="ANLongTapButton_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RPs-Jf-vws"/>
-                        <viewControllerLayoutGuide type="bottom" id="cz9-Q5-UdT"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kgS-hD-pwo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcA-sH-QqT" customClass="ANLongTapButton" customModule="ANLongTapButton">
+                                <rect key="frame" x="130" y="210" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mcA-sH-QqT" secondAttribute="height" multiplier="1:1" id="EWP-VO-NPz"/>
                                     <constraint firstAttribute="height" constant="50" id="i1K-Vv-dPL"/>
@@ -138,9 +153,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="mcA-sH-QqT" firstAttribute="centerX" secondItem="kgS-hD-pwo" secondAttribute="centerX" id="9yu-N4-ugn"/>
+                            <constraint firstItem="mcA-sH-QqT" firstAttribute="centerX" secondItem="Ucb-z1-MrN" secondAttribute="centerX" id="9yu-N4-ugn"/>
                             <constraint firstItem="mcA-sH-QqT" firstAttribute="centerY" secondItem="kgS-hD-pwo" secondAttribute="centerY" id="oVa-T6-0nW"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ucb-z1-MrN"/>
                     </view>
                     <navigationItem key="navigationItem" id="iXD-5g-lhZ"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -165,13 +181,14 @@
                             <tableViewSection id="Oaa-BC-637">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Df8-Uc-XW5">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Df8-Uc-XW5" id="3PP-H7-w97">
-                                            <frame key="frameInset" width="287" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="293" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay Now Button" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7r-B6-9yX">
+                                                    <rect key="frame" x="12" y="12" width="269" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -189,13 +206,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="T3a-vp-TAc">
-                                        <rect key="frame" x="0.0" y="108" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T3a-vp-TAc" id="fuw-J8-CSk">
-                                            <frame key="frameInset" width="287" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="293" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record Button" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87B-PJ-rF6">
+                                                    <rect key="frame" x="12" y="12" width="269" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -235,7 +253,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rdp-oS-8SQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
