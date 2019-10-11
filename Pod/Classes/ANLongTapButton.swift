@@ -8,7 +8,7 @@
 import UIKit
 
 @IBDesignable
-open class ANLongTapButton: UIButton
+open class ANLongTapButton: UIButton, CAAnimationDelegate
 {
     @IBInspectable open var barWidth: CGFloat = 10
     @IBInspectable open var barColor: UIColor = UIColor.yellow
@@ -16,6 +16,8 @@ open class ANLongTapButton: UIButton
     @IBInspectable open var bgCircleColor: UIColor = UIColor.blue
     @IBInspectable open var startAngle: CGFloat = -90
     @IBInspectable open var timePeriod: TimeInterval = 3
+    @IBInspectable open var reverseAnimationTimePeriod: TimeInterval = 0.5
+    @IBInspectable open var animatedRollback: Bool = false
     
     /// Invokes when timePeriod has elapsed.
     open var didTimePeriodElapseBlock : (() -> Void) = { () -> Void in }
@@ -29,6 +31,10 @@ open class ANLongTapButton: UIButton
     var timePeriodTimer: Timer?
     var circleLayer: CAShapeLayer?
     var isFinished = true
+    
+    // MARK: - Animation keys
+    private var drawCircleAnimationKey: String { "drawCircleAnimation" }
+    private var undrawCircleAnimationKey: String { "undrawCircleAnimation" }
     
     open override func prepareForInterfaceBuilder()
     {
@@ -95,36 +101,60 @@ open class ANLongTapButton: UIButton
         circleLayer!.strokeColor = barColor.cgColor
         circleLayer!.lineWidth = barWidth
         
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = timePeriod
-        animation.isRemovedOnCompletion = true
-        animation.fromValue = 0
-        animation.toValue = 1
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        circleLayer!.add(animation, forKey: "drawCircleAnimation")
+        let animation = strokeEndAnimation()
+        circleLayer!.add(animation, forKey: drawCircleAnimationKey)
         self.layer.addSublayer(circleLayer!)
     }
     
     @objc func cancel(_ sender: AnyObject, forEvent event: UIEvent)
     {
-        if !isFinished {
+        let isNotFinished = !isFinished
+        if isNotFinished {
             isFinished = true
             didFinishBlock()
         }
         
-        reset()
+        if let circleLayer = self.circleLayer, let currentStrokeValue = circleLayer.presentation()?.strokeEnd, animatedRollback, isNotFinished {
+            resetTimer()
+            
+            let reverseAnimation = strokeReverseAnimation(fromValue: currentStrokeValue)
+            reverseAnimation.delegate = self
+            circleLayer.pauseAnimation()
+            circleLayer.add(reverseAnimation, forKey: undrawCircleAnimationKey)
+            circleLayer.removeAnimation(forKey: drawCircleAnimationKey)
+            circleLayer.resumeAnimation()
+        } else {
+            reset()
+        }
     }
     
     func reset()
     {
+        resetTimer()
+        resetCircleLayer()
+    }
+    
+    private func resetTimer()
+    {
         timePeriodTimer?.invalidate()
         timePeriodTimer = nil
+    }
+    
+    private func resetCircleLayer()
+    {
         circleLayer?.removeAllAnimations()
         circleLayer?.removeFromSuperlayer()
         circleLayer = nil
     }
     
-    func drawBackground(_ context: CGContext, center: CGPoint, radius: CGFloat)
+    // MARK: - CAAnimationDelegate
+    
+    public func animationDidStop(_ anim: CAAnimation, finished flag: Bool)
+    {
+        resetCircleLayer()
+    }
+    
+    private func drawBackground(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
         if let backgroundColor = self.backgroundColor {
             context.setFillColor(backgroundColor.cgColor);
@@ -132,7 +162,7 @@ open class ANLongTapButton: UIButton
         }
     }
     
-    func drawBackgroundCircle(_ context: CGContext, center: CGPoint, radius: CGFloat)
+    private func drawBackgroundCircle(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
         context.setFillColor(bgCircleColor.cgColor)
         context.beginPath()
@@ -141,7 +171,7 @@ open class ANLongTapButton: UIButton
         context.fillPath()
     }
     
-    func drawTrackBar(_ context: CGContext, center: CGPoint, radius: CGFloat)
+    private func drawTrackBar(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
         if (barWidth > radius) {
             barWidth = radius;
@@ -155,7 +185,7 @@ open class ANLongTapButton: UIButton
         context.fillPath()
     }
     
-    func drawProgressBar(_ context: CGContext, center: CGPoint, radius: CGFloat)
+    private func drawProgressBar(_ context: CGContext, center: CGPoint, radius: CGFloat)
     {
         if (barWidth > radius) {
             barWidth = radius;
@@ -171,6 +201,30 @@ open class ANLongTapButton: UIButton
     
     // MARK: - Private
     
+    private func strokeEndAnimation() -> CABasicAnimation
+    {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = timePeriod
+        animation.isRemovedOnCompletion = true
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        
+        return animation
+    }
+    
+    private func strokeReverseAnimation(fromValue: Any) -> CABasicAnimation
+    {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = reverseAnimationTimePeriod
+        animation.isRemovedOnCompletion = true
+        animation.fromValue = fromValue
+        animation.toValue = 0
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        
+        return animation
+    }
+    
     fileprivate func center() -> CGPoint
     {
         return CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
@@ -184,4 +238,26 @@ open class ANLongTapButton: UIButton
     }
     
     fileprivate func degreesToRadians (_ value: CGFloat) -> CGFloat { return value * CGFloat.pi / CGFloat(180.0) }
+}
+
+fileprivate extension CALayer
+{
+    
+    func pauseAnimation()
+    {
+        let pausedTime = convertTime(CACurrentMediaTime(), from: nil)
+        speed = 0
+        timeOffset = pausedTime
+    }
+
+    func resumeAnimation()
+    {
+        let pausedTime = timeOffset
+        speed = 1
+        timeOffset = 0
+        beginTime = 0
+        let timeSincePause = convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        beginTime = timeSincePause
+    }
+    
 }
