@@ -203,23 +203,20 @@ open class ANLongTapButton: UIButton, CAAnimationDelegate
     
     private func strokeEndAnimation() -> CABasicAnimation
     {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = timePeriod
-        animation.isRemovedOnCompletion = true
-        animation.fromValue = 0
-        animation.toValue = 1
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        
-        return animation
+        return strokeAnimation(fromValue: 0, toValue: 1, duration: timePeriod)
     }
     
     private func strokeReverseAnimation(fromValue: Any) -> CABasicAnimation
     {
+        return strokeAnimation(fromValue: fromValue, toValue: 0, duration: reverseAnimationTimePeriod)
+    }
+    
+    private func strokeAnimation(fromValue: Any, toValue: Any, duration: TimeInterval) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = reverseAnimationTimePeriod
+        animation.duration = duration
         animation.isRemovedOnCompletion = true
         animation.fromValue = fromValue
-        animation.toValue = 0
+        animation.toValue = toValue
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         
         return animation
